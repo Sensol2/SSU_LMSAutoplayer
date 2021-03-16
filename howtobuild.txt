@@ -1,0 +1,1 @@
+pyinstaller --onefile --noconsole --icon=logo.ico LMSAutoPlayer_UI.py
