@@ -26,6 +26,9 @@ class PlayThread(QThread, QObject): #쓰레딩
         self.chromeOption_Hide = False
         self.chromeOption_Mute = False
         self.powerOffOption = False
+        self.spareSecond = 0
+        self.spareMinute = 0
+        self.sparePercent = 0
 
     def InitLinkData(self, new_links):          # 강의 링크 정보 저장
         self.links = new_links
@@ -65,6 +68,10 @@ class WindowClass(QMainWindow, form_class) :
         self.checkbox_toggleChromeToHide.stateChanged.connect(self.ToggleChromeToHide)
         self.checkbox_toggleChromeToMute.stateChanged.connect(self.ToggleChromeToMute)
         self.checkbox_togglePowerOff.stateChanged.connect(self.TogglePowerOff)
+        self.spinBox_spareMinute.valueChanged.connect(self.SetSpareMinute)
+        self.spinBox_spareSecond.valueChanged.connect(self.SetSpareSecond)
+        self.spinBox_sparePercent.valueChanged.connect(self.SetSparePercent)
+
 
     def StartFunc(self):
         links = []
@@ -78,6 +85,7 @@ class WindowClass(QMainWindow, form_class) :
         links.append(self.link7.text())
         links.append(self.link8.text())
         links.append(self.link9.text())
+        links.append(self.link10.text())
 
         links = list(filter(None, links)) #공백인 리스트 제거
         self.th.InitLinkData(links)       #쓰레드 멤버 변수에 추가
@@ -135,6 +143,15 @@ class WindowClass(QMainWindow, form_class) :
             self.AddLogMessage('마지막에 자동으로 컴퓨터를 종료합니다')
         else:
             self.AddLogMessage('마지막에 자동으로 컴퓨터를 종료하지 않습니다')
+
+    def SetSpareMinute(self, str):
+        self.th.spareMinute = int(self.spinBox_spareMinute.value())
+
+    def SetSpareSecond(self, str):
+        self.th.spareSecond = int(self.spinBox_spareSecond.value())
+
+    def SetSparePercent(self, str):
+        self.th.sparePercent = int(self.spinBox_sparePercent.value())
 
     def SetLectureName(self, string):
         self.textBox_currentLecture.setPlainText(string)

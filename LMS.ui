@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>795</width>
-    <height>556</height>
+    <width>810</width>
+    <height>585</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,8 +26,8 @@
      <rect>
       <x>530</x>
       <y>20</y>
-      <width>251</width>
-      <height>161</height>
+      <width>271</width>
+      <height>151</height>
      </rect>
     </property>
     <property name="title">
@@ -36,7 +36,7 @@
     <widget class="QPushButton" name="Button_Login">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>170</x>
        <y>120</y>
        <width>93</width>
        <height>28</height>
@@ -51,7 +51,7 @@
       <rect>
        <x>20</x>
        <y>40</y>
-       <width>221</width>
+       <width>241</width>
        <height>21</height>
       </rect>
      </property>
@@ -64,7 +64,7 @@
       <rect>
        <x>20</x>
        <y>90</y>
-       <width>221</width>
+       <width>241</width>
        <height>21</height>
       </rect>
      </property>
@@ -106,8 +106,8 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>320</y>
-      <width>381</width>
+      <y>370</y>
+      <width>401</width>
       <height>201</height>
      </rect>
     </property>
@@ -118,9 +118,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
-       <width>361</width>
-       <height>131</height>
+       <y>20</y>
+       <width>381</width>
+       <height>111</height>
       </rect>
      </property>
      <property name="sizeAdjustPolicy">
@@ -130,9 +130,9 @@
     <widget class="QPushButton" name="Button_clearLog">
      <property name="geometry">
       <rect>
-       <x>12</x>
-       <y>170</y>
-       <width>361</width>
+       <x>10</x>
+       <y>140</y>
+       <width>381</width>
        <height>28</height>
       </rect>
      </property>
@@ -150,7 +150,7 @@
       <x>10</x>
       <y>10</y>
       <width>381</width>
-      <height>431</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="title">
@@ -256,6 +256,16 @@
       </rect>
      </property>
     </widget>
+    <widget class="QLineEdit" name="link10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>430</y>
+       <width>361</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="Button_Start">
     <property name="enabled">
@@ -264,7 +274,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>30</y>
+      <y>20</y>
       <width>121</width>
       <height>71</height>
      </rect>
@@ -280,7 +290,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>110</y>
+      <y>100</y>
       <width>121</width>
       <height>71</height>
      </rect>
@@ -293,9 +303,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>450</y>
+      <y>490</y>
       <width>381</width>
-      <height>71</height>
+      <height>61</height>
      </rect>
     </property>
     <property name="title">
@@ -307,7 +317,7 @@
        <x>10</x>
        <y>20</y>
        <width>361</width>
-       <height>41</height>
+       <height>31</height>
       </rect>
      </property>
     </widget>
@@ -316,9 +326,9 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>190</y>
-      <width>381</width>
-      <height>121</height>
+      <y>180</y>
+      <width>401</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="title">
@@ -361,6 +371,88 @@
      </property>
      <property name="text">
       <string>크롬 창을 숨긴채 실행</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBox_spareMinute">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>120</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBox_spareSecond">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>120</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>120</y>
+       <width>211</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>초만큼 더 재생한 후 강의 종료</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>120</y>
+       <width>16</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>분</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBox_sparePercent">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>150</y>
+       <width>41</width>
+       <height>16</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>150</y>
+       <width>201</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>% 만큼 더 재생한 후 강의종료</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>150</y>
+       <width>141</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>출석인정시간의</string>
      </property>
     </widget>
    </widget>

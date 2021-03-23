@@ -112,6 +112,7 @@ def OpenLecture(self, driver, link):
 
 def CloseLecture(self, driver):
     self.signal_AddLogMessage.emit('강의를 종료합니다')
+        
     driver.execute_script("window.open('');")
 
     window_to_close = driver.window_handles[0]
@@ -127,7 +128,6 @@ def GetLecturePlaytime(self, driver):
     playtime = driver.find_element_by_class_name('playtime').text
     self.signal_AddLogMessage.emit("현재 강의의 출석인정 수강시간 : " + str(playtime))
     
-
     hour = 0
     minute = 0
     second = 0
@@ -149,6 +149,19 @@ def GetLecturePlaytime(self, driver):
     self.signal_AddLogMessage.emit("초로 환산 : " + str(totalSecond) + "초")
 
     return totalSecond
+
+def DelayBySparetime(self, driver, playtime):
+    print(self.spareSecond, self.spareMinute, self.sparePercent)
+    if self.spareSecond != 0 or self.spareMinute != 0: #강의 끝난 후 여유시간동안 대기
+        self.signal_AddLogMessage.emit('여유시간인 %d분 %d초만큼 더 재생합니다' %(self.spareMinute, self.spareSecond))
+        NewSleep(self, driver, self.spareSecond + self.spareMinute*60)
+
+    if self.sparePercent!=0:
+        delaySec = playtime*(self.sparePercent/100)
+        self.signal_AddLogMessage.emit('출석인정 요구시간의 %d퍼센트만큼 더 재생합니다.' %self.sparePercent)
+        self.signal_AddLogMessage.emit('%d초의 %d퍼센트인 %d초 만큼 더 재생합니다.' %(playtime, self.sparePercent, delaySec))
+        NewSleep(self, driver, delaySec)
+
 
 def mainFunc(self):
     #Initialize
@@ -172,12 +185,13 @@ def mainFunc(self):
         options.add_argument("--mute-audio")
         self.signal_AddLogMessage.emit("크롬 창을 음소거 상태로 진행합니다...")
 
+    # 드라이버 로드
     try:
         driver = webdriver.Chrome('.\chromedriver\chromedriver.exe', options=options)
     except:
         self.signal_AddLogMessage.emit("! 크롬 드라이버 로드 실패. 최신버전의 크롬이 설치되어 있는지, chromedriver.exe가 폴더 내에 있는지 확인해주세요.")
         return;
-
+    
     # =====로그인=====
     try:
         Login(self, driver, user_id, user_pw)
@@ -195,21 +209,19 @@ def mainFunc(self):
         self.sinal_StopFunc.emit()
     else:
         lectureLinks = links
-        try:
-            for link in links:
-                OpenLecture(self, driver, link)
-                NewSleep(self, driver, GetLecturePlaytime(self, driver))
-                # time.sleep(GetLecturePlaytime(self, driver))
-                CloseLecture(self, driver)
-
-            self.signal_AddLogMessage.emit("강의를 모두 재생했습니다!")
-            self.signal_SetLectureName.emit("실행중인 강의 없음 (모두 재생함)")
-
-            if self.powerOffOption:
-                Shutdown(300)   #5분 뒤 컴퓨터 자동종료
-                self.signal_AddLogMessage.emit("5분 뒤 컴퓨터가 종료됩니다")
-
-        except:
-            self.signal_AddLogMessage.emit("! 강의 로드에 실패했습니다. 로그인 정보와 강의 링크를 확인해주세요")
-            self.sinal_StopFunc.emit()
+        #tr:
+        for link in links:
+            OpenLecture(self, driver, link)                     #강의 재생시작
+            playtime = GetLecturePlaytime(self, driver)         #강의 시간
+            NewSleep(self, driver, playtime)                    #강의 끝까지 대기
+            DelayBySparetime(self, driver, playtime)            #최소 수강시간 시청 후에 더 재생 (옵션)
+            CloseLecture(self, driver)                          #강의 종료
+        self.signal_AddLogMessage.emit("강의를 모두 재생했습니다!")
+        self.signal_SetLectureName.emit("실행중인 강의 없음 (모두 재생함)")
+        if self.powerOffOption:
+            Shutdown(300)   #5분 뒤 컴퓨터 자동종료
+            self.signal_AddLogMessage.emit("5분 뒤 컴퓨터가 종료됩니다")
+        # except:
+        #     self.signal_AddLogMessage.emit("! 강의 로드에 실패했습니다. 로그인 정보와 강의 링크를 확인해주세요")
+        #     self.sinal_StopFunc.emit()
     driver.quit()        

@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['LMSAutoPlayer_UI.py'],
-             pathex=['C:\\Users\\hhncn\\Desktop\\LMSAUTOPLAYER'],
+             pathex=['C:\\Users\\hhncn\\Desktop\\lmsautoplayer'],
              binaries=[],
              datas=[],
              hiddenimports=[],
