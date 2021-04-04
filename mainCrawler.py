@@ -209,19 +209,19 @@ def mainFunc(self):
         self.sinal_StopFunc.emit()
     else:
         lectureLinks = links
-        #tr:
-        for link in links:
-            OpenLecture(self, driver, link)                     #강의 재생시작
-            playtime = GetLecturePlaytime(self, driver)         #강의 시간
-            NewSleep(self, driver, playtime)                    #강의 끝까지 대기
-            DelayBySparetime(self, driver, playtime)            #최소 수강시간 시청 후에 더 재생 (옵션)
-            CloseLecture(self, driver)                          #강의 종료
-        self.signal_AddLogMessage.emit("강의를 모두 재생했습니다!")
-        self.signal_SetLectureName.emit("실행중인 강의 없음 (모두 재생함)")
-        if self.powerOffOption:
-            Shutdown(300)   #5분 뒤 컴퓨터 자동종료
-            self.signal_AddLogMessage.emit("5분 뒤 컴퓨터가 종료됩니다")
-        # except:
-        #     self.signal_AddLogMessage.emit("! 강의 로드에 실패했습니다. 로그인 정보와 강의 링크를 확인해주세요")
-        #     self.sinal_StopFunc.emit()
+        try:
+            for link in links:
+                OpenLecture(self, driver, link)                     #강의 재생시작
+                playtime = GetLecturePlaytime(self, driver)         #강의 시간
+                NewSleep(self, driver, playtime)                    #강의 끝까지 대기
+                DelayBySparetime(self, driver, playtime)            #최소 수강시간 시청 후에 더 재생 (옵션)
+                CloseLecture(self, driver)                          #강의 종료
+            self.signal_AddLogMessage.emit("강의를 모두 재생했습니다!")
+            self.signal_SetLectureName.emit("실행중인 강의 없음 (모두 재생함)")
+            if self.powerOffOption:
+                Shutdown(300)   #5분 뒤 컴퓨터 자동종료
+                self.signal_AddLogMessage.emit("5분 뒤 컴퓨터가 종료됩니다")
+        except:
+            self.signal_AddLogMessage.emit("! 강의 로드에 실패했습니다. 로그인 정보와 강의 링크를 확인해주세요")
+            self.sinal_StopFunc.emit()
     driver.quit()        
