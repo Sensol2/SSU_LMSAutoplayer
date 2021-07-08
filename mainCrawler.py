@@ -66,6 +66,9 @@ def Login(self, driver, id, password):
     try:
         driver.get('https://myclass.ssu.ac.kr/login.php')
 
+        WaitForClass_CanBeClicked(driver, 10, 'loginform')
+        # (유세인트 업데이트 이후 버튼 추가)
+        driver.find_element_by_xpath('//*[@id="region-main"]/div/div/div/div[3]/div[1]/div[1]/div[2]/div/button').click()
         #ID, PW 필드 채우기
         driver.find_element_by_xpath('//*[@id="input-username"]').send_keys(id)
         driver.find_element_by_xpath('//*[@id="input-password"]').send_keys(password)
